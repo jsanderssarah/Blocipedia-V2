@@ -11,9 +11,21 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_01_16_204104) do
 =======
 ActiveRecord::Schema.define(version: 2019_01_17_185102) do
+=======
+ActiveRecord::Schema.define(version: 2019_01_30_202629) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "wiki_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wiki_id"], name: "index_comments_on_wiki_id"
+  end
+>>>>>>> user-story-3-wiki-crud
 
   create_table "models", force: :cascade do |t|
     t.string "email", default: "", null: false
