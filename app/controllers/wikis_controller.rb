@@ -1,10 +1,10 @@
-class WikiController < ApplicationController
+class WikisController < ApplicationController
   def index
     @wikis = Wiki.all
   end
 
   def show
-    @user = authorize User.find(params[:id])
+    @wiki = Wiki.find(params[:id])
   end
 
   def new
@@ -13,11 +13,6 @@ class WikiController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
-  end
-
-  def admin_list
-    authorize Wiki # we don't have a particular post to authorize
-    # Rest of controller action
   end
 
   def update

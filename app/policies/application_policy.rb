@@ -3,7 +3,7 @@ class ApplicationPolicy
 
   def initialize(user, record)
     @user = user
-    @record = record
+    @wiki = wiki
   end
 
   def index?
@@ -11,7 +11,7 @@ class ApplicationPolicy
   end
 
   def show?
-    false
+    scope.where(id:record.id).exists?
   end
 
   def create?
@@ -34,6 +34,10 @@ class ApplicationPolicy
     false
   end
 
+  def scope
+    Pundit.policy_scope(user, record.class)
+  end
+
   class Scope
     attr_reader :user, :scope
 
@@ -43,30 +47,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope.all
+      scope
     end
   end
 end
-
-class WikiPolicy
-  attr_reader :user, :wiki
-
-  def initialize(user, wiki)
-    @user = user
-    @wiki = wiki
-  end
-
-  def update?
-    user.admin? or not wiki.published?
-  end
-
-  def admin_list?
-    user.admin?
-  end
-end
-
-# class WikiPolicy < ApplicationPolicy
-#   def update?
-#     user.admin? or not record.published?
-#   end
-# end
